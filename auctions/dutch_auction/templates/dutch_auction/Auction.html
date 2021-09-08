@@ -1,0 +1,84 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+<p>Hallo Welt</p>
+<h2>Dutch auction</h2>
+<p>In this auction, you have costs of {{player.cost}} (red line).</p>
+<p></p>
+
+
+<style>
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+  position: relative;
+}
+#myBar {
+  width: 0%;
+  height: 30px;
+  background-color: #40bf80;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+#myBarPrice {
+  background-color: #FF0000;
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  left: 40%;
+  top: 0;
+}
+.bg-info{
+    background-color: #ddd;
+}
+</style>
+Price clock:
+<div id="myProgress">
+  <div id="myBar">$100</div>
+  <div id=myBarPrice></div>
+</div>
+<p></p>
+<p id="Message"></p>
+<script>
+    let cost = {{player.cost|json}};
+    let bot_stop = {{player.bot_stop|json}};
+    let price = {{Constants.start_value|json}};
+    var Auction;
+    console.log(cost-100);
+	document.getElementById("myBarPrice").style.left = cost-100+'%';
+    function startAuction(){
+        document.getElementById("start_button").innerHTML = "Accept";
+        document.getElementById("start_button").onclick = function (){stopAuction();};
+        Auction = setInterval(function(){
+            if(price == bot_stop){
+                document.getElementById("Message").innerHTML = 'The other supplier accepted a price of $' + bot_stop+'.00.';
+                stopAuction();
+            }
+            if(price != bot_stop){
+                price = price +1;
+                document.getElementById("myBar").innerHTML='$'+price;
+                document.getElementById("myBar").style.width = (price-100) +'%';
+            }
+        },500)
+    }
+    function stopAuction() {
+        document.querySelector("[name=winning_price]").value = price;
+        if(price != bot_stop){
+          document.getElementById("Message").innerHTML = 'You accepted a price of $'+ price +'.00.'
+        }
+        document.getElementById("start_button").innerHTML = 'Next Page';
+        document.getElementById("start_button").remove();
+        document.getElementById("next_page_button").style.visibility = "visible";
+        clearInterval(Auction);
+    }
+</script>
+<button type="button" class="otree-btn-next btn btn-primary" id="start_button" onclick="startAuction()">Start price clock</button>
+<p></p>
+<button class="otree-btn-next btn btn-primary" style="visibility :hidden" id="next_page_button" onclick="stopAuction()">Next Page</button>
+<p></p>
+<p></p>
+<input  type="hidden" name="winning_price" />
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Welcome to the second-price sealed-bid auction training app
+{% endblock %}
+
+{% block content %}
+
+<p>
+	In the following, you can participate in up to 100 second-price sealed-bid auctions. In each auction you bid against another bidder. The role of the other bidder is taken by a computer.<br/><br/>
+	The bidder who places the lower bid wins. The price is equal to the second-lowest bid. If both bidders place the same bid, each of them wins in 50 percent of the cases.<br/><br/>
+	Before each auction your costs are drawn from a random distribution. The lowest cost you can have is $100 and the highest cost you can have is $200. If you win, your profit is equal to the difference between price and your costs. If you do not win, your profit is $0.
+</p>
+    {% next_button %}
+
+{% endblock %}

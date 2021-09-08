@@ -1,0 +1,12 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+     Welcome to the Dutch auction training app
+{% endblock %}
+{% block content %}
+<p>In the following, you can participate in up to 100 Dutch auctions. In each auction you bid against another bidder. The role of the other bidder is taken by a computer.<br/><br/>
+The price clock starts at a price of $100. Each second the price increases by $1. The bidder who accepts first wins. The price is equal to the price that was displayed on the price clock when the winner accepted.<br/><br/>
+Before each auction your costs are drawn from a random distribution. The lowest cost you can have is $100 and the highest cost you can have is $200. If you win, your profit is equal to the difference between price and your costs. If you do not win, your profit is $0.
+</p>
+    {% next_button %}
+{% endblock %}

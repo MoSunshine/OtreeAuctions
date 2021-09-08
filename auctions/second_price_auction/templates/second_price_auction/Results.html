@@ -1,0 +1,63 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Results
+{% endblock %}
+{% block content %}
+{% if win == True %}
+<p>
+    You won the auction with a bid of {{bid}}.
+</p>
+{% else %}
+<p>
+	Your competitor won the auction with a bid of {{others_bid}}.
+</p>
+{% endif %}
+<p></p>
+<style>
+table, th, td {
+  border: 0.5px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+th {
+  text-align: left;
+}
+</style>
+</head>
+<p>
+	<p>Your profit in this auction {{profit}}</p>
+</p>
+
+<p> </p>
+<table style="width:100%">
+     <tr>
+        <th>Round</th>
+        <th>Your bid</th>
+        <th>Other's bid</th>
+	    <th>Price</th>
+	    <th>Winner?</th>
+	    <th>Your costs</th>
+	    <th>Your profit</th>
+    </tr>
+    {% for item in results %}
+    <tr>
+        <td>{{item.num}}</td>
+        <td>{{item.bid}}</td>
+        <td>{{item.others_bid}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.winner}}</td>
+        <td>{{item.cost}}</td>
+        <td>{{item.profit}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p> </p>
+<p> </p>
+
+    {% next_button %}
+{% endblock %}
+
+

@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    First-price sealed-bid auction
+{% endblock %}
+
+{% block content %}
+
+<p>
+	In this auction, you have costs of: {{cost}}.
+</p>
+<script></script>
+	{% formfields %}
+<button class="otree-btn-next btn btn-primary" id="submit" >Submit bid</button>
+
+
+{% endblock %}
